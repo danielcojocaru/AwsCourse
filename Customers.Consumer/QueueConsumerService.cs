@@ -10,13 +10,13 @@ namespace Customers.Consumer;
 public class QueueConsumerService : BackgroundService
 {
     private readonly IAmazonSQS _sqs;
-    private readonly QueueSettings _settings;
+    private readonly AwsSettings _settings;
     private readonly IMediator _mediator;
     private readonly ILogger<QueueConsumerService> _logger;
 
     public QueueConsumerService(
         IAmazonSQS sqs,
-        IOptions<QueueSettings> settings,
+        IOptions<AwsSettings> settings,
         IMediator mediator,
         ILogger<QueueConsumerService> logger)
     {
@@ -28,7 +28,7 @@ public class QueueConsumerService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        GetQueueUrlResponse queueUrlResponse = await _sqs.GetQueueUrlAsync(_settings.Name, stoppingToken);
+        GetQueueUrlResponse queueUrlResponse = await _sqs.GetQueueUrlAsync(_settings.QueueName, stoppingToken);
         ReceiveMessageRequest receiveMessagesRequest = new()
         {
             QueueUrl = queueUrlResponse.QueueUrl,

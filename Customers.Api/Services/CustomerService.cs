@@ -12,16 +12,16 @@ public class CustomerService : ICustomerService
 {
     private readonly ICustomerRepository _customerRepository;
     private readonly IGitHubService _gitHubService;
-    private readonly ISqsMessenger _sqsMessenger;
+    private readonly ISnsMessenger _snsMessenger;
 
     public CustomerService(
         ICustomerRepository customerRepository,
         IGitHubService gitHubService,
-        ISqsMessenger sqsMessenger)
+        ISnsMessenger snsMessenger)
     {
         _customerRepository = customerRepository;
         _gitHubService = gitHubService;
-        _sqsMessenger = sqsMessenger;
+        _snsMessenger = snsMessenger;
     }
 
     public async Task<bool> CreateAsync(Customer customer)
@@ -45,7 +45,7 @@ public class CustomerService : ICustomerService
 
         if (response)
         {
-            await _sqsMessenger.SendMessage(customer.ToCustomerCreatedMessage());
+            await _snsMessenger.SendMessage(customer.ToCustomerCreatedMessage());
         }
 
         return response;
@@ -78,7 +78,7 @@ public class CustomerService : ICustomerService
 
         if (response)
         {
-            await _sqsMessenger.SendMessage(customer.ToCustomerUpdatedMessage());
+            await _snsMessenger.SendMessage(customer.ToCustomerUpdatedMessage());
         }
 
         return response;
@@ -90,7 +90,7 @@ public class CustomerService : ICustomerService
 
         if (response)
         {
-            await _sqsMessenger.SendMessage(new CustomerDeleted() { Id = id });
+            await _snsMessenger.SendMessage(new CustomerDeleted() { Id = id });
         }
 
         return response;

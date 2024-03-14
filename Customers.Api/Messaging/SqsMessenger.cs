@@ -9,13 +9,13 @@ namespace Customers.Api.Messaging;
 public class SqsMessenger : ISqsMessenger
 {
     private readonly IAmazonSQS _sqs;
-    private readonly QueueSettings _queueSettings;
-    private string? queueUrl;
+    private readonly AwsSettings _awsSettings;
+    private string? _queueUrl;
 
-    public SqsMessenger(IAmazonSQS sqs, IOptions<QueueSettings> queueSettings)
+    public SqsMessenger(IAmazonSQS sqs, IOptions<AwsSettings> awsSettings)
     {
         _sqs = sqs;
-        _queueSettings = queueSettings.Value;
+        _awsSettings = awsSettings.Value;
     }
 
     public async Task<SendMessageResponse> SendMessage<T>(T message)
@@ -42,12 +42,12 @@ public class SqsMessenger : ISqsMessenger
 
     private async Task<string> GetQueueUrl()
     {
-        if (queueUrl is null)
+        if (_queueUrl is null)
         {
-            GetQueueUrlResponse response = await _sqs.GetQueueUrlAsync(_queueSettings.Name);
-            queueUrl = response.QueueUrl;
+            GetQueueUrlResponse response = await _sqs.GetQueueUrlAsync(_awsSettings.QueueName);
+            _queueUrl = response.QueueUrl;
 
         }
-        return queueUrl;
+        return _queueUrl;
     }
 }
