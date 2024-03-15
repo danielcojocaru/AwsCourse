@@ -1,3 +1,4 @@
+using Amazon.DynamoDBv2;
 using Amazon.SimpleNotificationService;
 using Amazon.SQS;
 using Customers.Api.Database;
@@ -34,13 +35,14 @@ SqlMapper.RemoveTypeMap(typeof(Guid?));
 builder.Services.AddSingleton<IDbConnectionFactory>(_ =>
     new SqliteConnectionFactory(config.GetValue<string>("Database:ConnectionString")!));
 builder.Services.AddSingleton<DatabaseInitializer>();
-builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
+builder.Services.AddSingleton<ICustomerRepository, CustomerRepository_DynamoDb>();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
 builder.Services.AddSingleton<IGitHubService, GitHubService>();
 builder.Services.AddSingleton<IAmazonSQS, AmazonSQSClient>();
 builder.Services.AddSingleton<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>();
 builder.Services.AddSingleton<ISqsMessenger, SqsMessenger>();
 builder.Services.AddSingleton<ISnsMessenger, SnsMessenger>();
+builder.Services.AddSingleton<IAmazonDynamoDB, AmazonDynamoDBClient>();
 builder.Services.Configure<AwsSettings>(builder.Configuration.GetSection(nameof(AwsSettings)));
 
 builder.Services.AddHttpClient("GitHub", httpClient =>

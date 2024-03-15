@@ -4,11 +4,11 @@ using Dapper;
 
 namespace Customers.Api.Repositories;
 
-public class CustomerRepository : ICustomerRepository
+public class CustomerRepository_SqlLight : ICustomerRepository
 {
     private readonly IDbConnectionFactory _connectionFactory;
 
-    public CustomerRepository(IDbConnectionFactory connectionFactory)
+    public CustomerRepository_SqlLight(IDbConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
@@ -50,7 +50,7 @@ public class CustomerRepository : ICustomerRepository
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
         var result = await connection.ExecuteAsync(@"DELETE FROM Customers WHERE Id = @Id",
-            new {Id = id});
+            new { Id = id });
         return result > 0;
     }
 }
