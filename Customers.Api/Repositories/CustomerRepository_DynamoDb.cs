@@ -17,13 +17,7 @@ public class CustomerRepository_DynamoDb : ICustomerRepository
         _dynamoDb = dynamoDb;
     }
 
-    public Task<bool> CreateAsync(CustomerDto customer)
-        => CreateOrUpdate(customer);
-
-    public Task<bool> UpdateAsync(CustomerDto customer)
-        => CreateOrUpdate(customer);
-
-    private async Task<bool> CreateOrUpdate(CustomerDto customer)
+    public async Task<bool> CreateAsync(CustomerDto customer)
     {
         customer.UpdatedAt = DateTime.UtcNow;
         var customerAsJson = JsonSerializer.Serialize(customer);
@@ -33,6 +27,29 @@ public class CustomerRepository_DynamoDb : ICustomerRepository
         {
             TableName = _tableName,
             Item = customerAsAttribute,
+            ConditionExpression = "attribute_not_exists(pk) and attribute_not_exists(sk)",
+        };
+
+        var response = await _dynamoDb.PutItemAsync(request);
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
+    public async Task<bool> UpdateAsync(CustomerDto customer)
+    {
+        customer.UpdatedAt = DateTime.UtcNow;
+        var customerAsJson = JsonSerializer.Serialize(customer);
+        var customerAsAttribute = Document.FromJson(customerAsJson).ToAttributeMap();
+        string requestStarted = ":requestStarted";
+
+        var request = new PutItemRequest
+        {
+            TableName = _tableName,
+            Item = customerAsAttribute,
+            ConditionExpression = $"{nameof(CustomerDto.UpdatedAt)} < {requestStarted}",
+            ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+            {
+                { requestStarted, new AttributeValue{ S = customer.UpdatedAt.ToString("O")} },
+            },
         };
 
         var response = await _dynamoDb.PutItemAsync(request);
@@ -55,9 +72,28 @@ public class CustomerRepository_DynamoDb : ICustomerRepository
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
-    public Task<IEnumerable<CustomerDto>> GetAllAsync()
+    public async Task<IEnumerable<CustomerDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        // Don't do this:
+        var scanRequest = new ScanRequest
+        {
+            TableName = _tableName,
+        };
+
+        var response = await _dynamoDb.ScanAsync(scanRequest);
+
+        var customers = new List<CustomerDto>();
+        foreach (var item in response.Items)
+        {
+            var json = Document.FromAttributeMap(item).ToJson();
+            CustomerDto? customer = JsonSerializer.Deserialize<CustomerDto>(json);
+            if (customer is not null)
+            {
+                customers.Add(customer);
+            }
+        }
+
+        return customers;
     }
 
     public async Task<CustomerDto?> GetAsync(Guid id)
