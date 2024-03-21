@@ -36,7 +36,10 @@ builder.Services.AddSingleton<IDbConnectionFactory>(_ =>
     new SqliteConnectionFactory(config.GetValue<string>("Database:ConnectionString")!));
 builder.Services.AddSingleton<DatabaseInitializer>();
 builder.Services.AddSingleton<ICustomerRepository, CustomerRepository_DynamoDb>();
+builder.Services.AddSingleton<IBookRepository, BookRepository>();
+builder.Services.AddSingleton<IDynamoDbHelper, DynamoDbHelper>();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
+builder.Services.AddSingleton<IBookService, BookService>();
 builder.Services.AddSingleton<IGitHubService, GitHubService>();
 builder.Services.AddSingleton<IAmazonSQS, AmazonSQSClient>();
 builder.Services.AddSingleton<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>();

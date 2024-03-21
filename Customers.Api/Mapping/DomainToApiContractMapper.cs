@@ -5,9 +5,8 @@ namespace Customers.Api.Mapping;
 
 public static class DomainToApiContractMapper
 {
-    public static CustomerResponse ToCustomerResponse(this Customer customer)
-    {
-        return new CustomerResponse
+    public static CustomerResponse ToResponse(this Customer customer)
+        => new()
         {
             Id = customer.Id,
             Email = customer.Email,
@@ -15,11 +14,9 @@ public static class DomainToApiContractMapper
             FullName = customer.FullName,
             DateOfBirth = customer.DateOfBirth
         };
-    }
 
-    public static GetAllCustomersResponse ToCustomersResponse(this IEnumerable<Customer> customers)
-    {
-        return new GetAllCustomersResponse
+    public static GetAllCustomersResponse ToResponse(this IEnumerable<Customer> customers)
+        => new()
         {
             Customers = customers.Select(x => new CustomerResponse
             {
@@ -30,5 +27,13 @@ public static class DomainToApiContractMapper
                 DateOfBirth = x.DateOfBirth
             })
         };
-    }
+
+    public static BookResponse ToResponse(this Book book)
+        => new()
+        {
+            IsbnNumber = book.IsbnNumber,
+            Author = book.Author,
+            PublicationYear = book.PublicationYear,
+            Title = book.Title,
+        };
 }

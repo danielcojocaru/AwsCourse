@@ -40,7 +40,7 @@ public class CustomerService : ICustomerService
             throw new ValidationException(message, GenerateValidationError(nameof(customer.GitHubUsername), message));
         }
 
-        var customerDto = customer.ToCustomerDto();
+        var customerDto = customer.ToDto();
         bool response = await _customerRepository.CreateAsync(customerDto);
 
         if (response)
@@ -65,7 +65,7 @@ public class CustomerService : ICustomerService
 
     public async Task<bool> UpdateAsync(Customer customer)
     {
-        var customerDto = customer.ToCustomerDto();
+        var customerDto = customer.ToDto();
 
         var isValidGitHubUser = await _gitHubService.IsValidGitHubUser(customer.GitHubUsername);
         if (!isValidGitHubUser)

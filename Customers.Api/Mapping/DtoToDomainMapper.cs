@@ -6,8 +6,7 @@ namespace Customers.Api.Mapping;
 public static class DtoToDomainMapper
 {
     public static Customer ToCustomer(this CustomerDto customerDto)
-    {
-        return new Customer
+        => new()
         {
             Id = customerDto.Id,
             Email = customerDto.Email,
@@ -15,5 +14,13 @@ public static class DtoToDomainMapper
             FullName = customerDto.FullName,
             DateOfBirth = customerDto.DateOfBirth
         };
-    }
+
+    public static Book ToDomain(this BookDto bookDto)
+        => new()
+        {
+            IsbnNumber = bookDto.Sk.Substring(BookDto.NAMESPACE.Length + 1),
+            Author = bookDto.Author,
+            PublicationYear = bookDto.PublicationYear,
+            Title = bookDto.Title,
+        };
 }

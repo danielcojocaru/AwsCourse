@@ -5,9 +5,8 @@ namespace Customers.Api.Mapping;
 
 public static class ApiContractToDomainMapper
 {
-    public static Customer ToCustomer(this CustomerRequest request)
-    {
-        return new Customer
+    public static Customer ToDomain(this CustomerRequest request)
+        => new()
         {
             Id = Guid.NewGuid(),
             Email = request.Email,
@@ -15,11 +14,9 @@ public static class ApiContractToDomainMapper
             FullName = request.FullName,
             DateOfBirth = request.DateOfBirth
         };
-    }
 
-    public static Customer ToCustomer(this UpdateCustomerRequest request)
-    {
-        return new Customer
+    public static Customer ToDomain(this UpdateCustomerRequest request)
+        => new()
         {
             Id = request.Id,
             Email = request.Customer.Email,
@@ -27,5 +24,13 @@ public static class ApiContractToDomainMapper
             FullName = request.Customer.FullName,
             DateOfBirth = request.Customer.DateOfBirth
         };
-    }
+
+    public static Book ToDomain(this BookRequestBase request)
+        => new()
+        {
+            IsbnNumber = request.IsbnNumber,
+            Author = request.Author,
+            PublicationYear = request.PublicationYear,
+            Title = request.Title,
+        };
 }

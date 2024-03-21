@@ -2,6 +2,7 @@
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Customers.Api.Contracts.Data;
+using Customers.Api.Services;
 using System.Net;
 using System.Text.Json;
 
@@ -9,12 +10,15 @@ namespace Customers.Api.Repositories;
 
 public class CustomerRepository_DynamoDb : ICustomerRepository
 {
-    private readonly IAmazonDynamoDB _dynamoDb;
     private const string _tableName = "tblCustomers";
 
-    public CustomerRepository_DynamoDb(IAmazonDynamoDB dynamoDb)
+    private readonly IAmazonDynamoDB _dynamoDb;
+    private readonly IDynamoDbHelper _dynamoDbHelper;
+
+    public CustomerRepository_DynamoDb(IAmazonDynamoDB dynamoDb, IDynamoDbHelper dynamoDbHelper)
     {
         _dynamoDb = dynamoDb;
+        _dynamoDbHelper = dynamoDbHelper;
     }
 
     public async Task<bool> CreateAsync(CustomerDto customer)

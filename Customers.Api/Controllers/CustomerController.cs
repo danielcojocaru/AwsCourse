@@ -1,4 +1,5 @@
 using Customers.Api.Contracts.Requests;
+using Customers.Api.Domain;
 using Customers.Api.Mapping;
 using Customers.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,11 @@ public class CustomerController : ControllerBase
     [HttpPost("customers")]
     public async Task<IActionResult> Create([FromBody] CustomerRequest request)
     {
-        var customer = request.ToCustomer();
+        var customer = request.ToDomain();
 
         await _customerService.CreateAsync(customer);
 
-        var customerResponse = customer.ToCustomerResponse();
+        var customerResponse = customer.ToResponse();
 
         return CreatedAtAction("Get", new { customerResponse.Id }, customerResponse);
     }
@@ -37,18 +38,18 @@ public class CustomerController : ControllerBase
             return NotFound();
         }
 
-        var customerResponse = customer.ToCustomerResponse();
+        var customerResponse = customer.ToResponse();
         return Ok(customerResponse);
     }
-    
+
     [HttpGet("customers")]
     public async Task<IActionResult> GetAll()
     {
         var customers = await _customerService.GetAllAsync();
-        var customersResponse = customers.ToCustomersResponse();
+        var customersResponse = customers.ToResponse();
         return Ok(customersResponse);
     }
-    
+
     [HttpPut("customers/{id:guid}")]
     public async Task<IActionResult> Update(
         [FromMultiSource] UpdateCustomerRequest request)
@@ -60,13 +61,13 @@ public class CustomerController : ControllerBase
             return NotFound();
         }
 
-        var customer = request.ToCustomer();
+        Customer customer = request.ToDomain();
         await _customerService.UpdateAsync(customer);
 
-        var customerResponse = customer.ToCustomerResponse();
+        var customerResponse = customer.ToResponse();
         return Ok(customerResponse);
     }
-    
+
     [HttpDelete("customers/{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
