@@ -1,0 +1,6 @@
+@SimpleWebApiLambda_HostAddress = http://localhost:5188
+
+GET {{SimpleWebApiLambda_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

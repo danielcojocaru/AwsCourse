@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLambda", "..\SimpleLa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleHttpLambda", "..\SimpleHttpLambda\src\SimpleHttpLambda\SimpleHttpLambda.csproj", "{A3B108E0-A5C2-4947-8883-CA9DF72C464D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSqsLambda", "..\SimpleSqsLambda\src\SimpleSqsLambda\SimpleSqsLambda.csproj", "{D3C5A3F3-8977-44FE-905E-8B23C0F65796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWebApiLambda", "..\SimpleWebApiLambda\SimpleWebApiLambda.csproj", "{DCA54F82-9330-4411-B526-52C6D71AC82A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +66,14 @@ Global
 		{A3B108E0-A5C2-4947-8883-CA9DF72C464D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3B108E0-A5C2-4947-8883-CA9DF72C464D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3B108E0-A5C2-4947-8883-CA9DF72C464D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3C5A3F3-8977-44FE-905E-8B23C0F65796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3C5A3F3-8977-44FE-905E-8B23C0F65796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3C5A3F3-8977-44FE-905E-8B23C0F65796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C5A3F3-8977-44FE-905E-8B23C0F65796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA54F82-9330-4411-B526-52C6D71AC82A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA54F82-9330-4411-B526-52C6D71AC82A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA54F82-9330-4411-B526-52C6D71AC82A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA54F82-9330-4411-B526-52C6D71AC82A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +81,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{330B55DA-2D81-4A64-B06D-573FA471B5E7} = {F8C73D64-6F0D-455D-BABF-7DE062286B71}
 		{A3B108E0-A5C2-4947-8883-CA9DF72C464D} = {F8C73D64-6F0D-455D-BABF-7DE062286B71}
+		{D3C5A3F3-8977-44FE-905E-8B23C0F65796} = {F8C73D64-6F0D-455D-BABF-7DE062286B71}
+		{DCA54F82-9330-4411-B526-52C6D71AC82A} = {F8C73D64-6F0D-455D-BABF-7DE062286B71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {30BCD94F-045C-460C-A812-4E565FEBE834}
