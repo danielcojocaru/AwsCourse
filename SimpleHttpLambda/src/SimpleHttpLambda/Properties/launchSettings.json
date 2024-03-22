@@ -1,0 +1,14 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "SimpleHttpLambda - TestTool": {
+      "commandName": "Executable",
+      "executablePath": "C:/Users/danielc/.dotnet/tools/dotnet-lambda-test-tool-8.0.exe",
+      "workingDirectory": "$(ProjectDir)",
+      "commandLineArgs": "",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

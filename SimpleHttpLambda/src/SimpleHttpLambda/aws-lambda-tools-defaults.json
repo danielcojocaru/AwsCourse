@@ -8,7 +8,10 @@
   "profile": "",
   "region": "",
   "configuration": "Release",
-  "s3-prefix": "SimpleHttpLambda/",
-  "template": "serverless.template",
-  "template-parameters": ""
+  "function-architecture": "x86_64",
+  "function-runtime": "dotnet8",
+  "function-memory-size": 512,
+  "function-timeout": 30,
+  "function-handler": "SimpleHttpLambda::SimpleHttpLambda.Functions::Get",
+  "function-url-enable": true
 }

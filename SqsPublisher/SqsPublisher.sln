@@ -16,6 +16,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnsPublisher", "..\SnsPublisher\SnsPublisher.csproj", "{50289B26-EFF2-4746-8F7A-C72EB067E5B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lambdas", "Lambdas", "{F8C73D64-6F0D-455D-BABF-7DE062286B71}"
+	ProjectSection(SolutionItems) = preProject
+		CommandLines.ps1 = CommandLines.ps1
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLambda", "..\SimpleLambda\src\SimpleLambda\SimpleLambda.csproj", "{330B55DA-2D81-4A64-B06D-573FA471B5E7}"
 EndProject
