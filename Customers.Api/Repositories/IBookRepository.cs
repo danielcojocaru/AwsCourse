@@ -8,5 +8,5 @@ public interface IBookRepository
     Task<bool> Update(BookDto book);
     Task<bool> Delete(string isbnNumber);
     Task<BookDto?> Get(string isbnNumber);
-    //Task<List<BookDto>> GetByAuthor(string author);
+    Task<List<BookDto>> GetByAuthor(string author, string? title = null);
 }

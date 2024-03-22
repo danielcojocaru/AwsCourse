@@ -18,7 +18,7 @@ public static class DtoToDomainMapper
     public static Book ToDomain(this BookDto bookDto)
         => new()
         {
-            IsbnNumber = bookDto.Sk.Substring(BookDto.NAMESPACE.Length + 1),
+            IsbnNumber = bookDto.Pk.Substring(BookDto.NAMESPACE.Length + 1),
             Author = bookDto.Author,
             PublicationYear = bookDto.PublicationYear,
             Title = bookDto.Title,

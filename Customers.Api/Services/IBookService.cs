@@ -8,4 +8,5 @@ public interface IBookService
     Task<bool> Update(Book book);
     Task<bool> Delete(string isbnNumber);
     Task<Book?> Get(string isbnNumber);
+    Task<List<Book>> GetByAuthor(string author, string? title = null);
 }

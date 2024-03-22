@@ -1,4 +1,5 @@
 ﻿using Customers.Api.Contracts.Requests;
+using Customers.Api.Contracts.Responses;
 using Customers.Api.Domain;
 using Customers.Api.Mapping;
 using Customers.Api.Services;
@@ -44,7 +45,7 @@ public class BookController : ControllerBase
         return NotFound();
     }
 
-    [HttpGet("customers/{isbnNumber}")]
+    [HttpGet("book/{isbnNumber}")]
     public async Task<IActionResult> Get([FromRoute] string isbnNumber)
     {
         Book? book = await _service.Get(isbnNumber);
@@ -54,7 +55,15 @@ public class BookController : ControllerBase
             return NotFound();
         }
 
-        var customerResponse = book.ToResponse();
-        return Ok(customerResponse);
+        var bookResponse = book.ToResponse();
+        return Ok(bookResponse);
+    }
+
+    [HttpGet("book/byAuthor/{author}")]
+    public async Task<IActionResult> GetByAuthor([FromRoute] string author, [FromQuery] string? title)
+    {
+        List<Book> books = await _service.GetByAuthor(author, title);
+        List<BookResponse> booksResponse = books.Select(book => book.ToResponse()).ToList();
+        return Ok(booksResponse);
     }
 }

@@ -5,23 +5,25 @@ namespace Customers.Api.Contracts.Data;
 public class BookDto
 {
     public const string NAMESPACE = "BOOK";
-    public const string SK = "!";
+    public const string TITLE_JSON = "title";
+    public const string AUTHOR_JSON = "author";
+    public const string YEAR_JSON = "year";
 
-    [JsonPropertyName("pk")]
+    [JsonPropertyName(BaseDto.PK_JSON)]
     public string Pk { get; init; } = default!; // "BOOK#<IsbnNumber>"
 
-    [JsonPropertyName("sk")]
-    public string Sk => SK;
+    [JsonPropertyName(BaseDto.SK_JSON)]
+    public string Sk => BaseDto.SK_CONSTANT_VALUE;
 
-    [JsonPropertyName("title")]
+    [JsonPropertyName(TITLE_JSON)]
     public string Title { get; init; } = default!;
 
-    [JsonPropertyName("author")]
+    [JsonPropertyName(AUTHOR_JSON)]
     public string Author { get; init; } = default!;
 
-    [JsonPropertyName("year")]
+    [JsonPropertyName(YEAR_JSON)]
     public int PublicationYear { get; init; } = default!;
 
-    [JsonPropertyName("u")]
+    [JsonPropertyName(BaseDto.UPDATED_AT_JSON)]
     public DateTime UpdatedAt { get; set; }
 }

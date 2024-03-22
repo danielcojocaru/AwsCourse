@@ -45,4 +45,11 @@ public class BookService : IBookService
         Book book = bookDto.ToDomain();
         return book;
     }
+
+    public async Task<List<Book>> GetByAuthor(string author, string? title = null)
+    {
+        List<BookDto> booksDto = await _repo.GetByAuthor(author, title);
+        List<Book> books = booksDto.Select(bookDto => bookDto.ToDomain()).ToList();
+        return books;
+    }
 }
